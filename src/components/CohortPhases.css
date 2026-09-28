@@ -1,0 +1,302 @@
+/* ============================================
+   Section 01 — Cohort Phases
+   Paper canvas · editorial rows · sticky DitherVeil
+   ============================================ */
+
+.cohorts-section {
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+  padding: clamp(64px, 8vw, 112px) 0 clamp(56px, 7vw, 96px);
+}
+
+/* ---- Header ---- */
+.cohorts-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-24);
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+
+.cohorts-eyebrow {
+  color: var(--ink-muted);
+}
+
+.cohorts-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.4vw, 84px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.cohorts-title-accent {
+  color: var(--purple-primary);
+}
+
+/* ---- Body: rows + sticky visual ---- */
+.cohorts-body {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+/* ---- Phase rows ---- */
+.phase-list {
+  list-style: none;
+  border-bottom: 1px solid var(--rule-ink);
+}
+
+.phase-item {
+  display: grid;
+  grid-template-columns: clamp(72px, 9vw, 128px) minmax(0, 1fr);
+  gap: var(--space-24);
+  padding: clamp(32px, 4vw, 56px) 0;
+  border-top: 1px solid var(--rule-ink);
+  transition: opacity var(--transition-slow);
+}
+
+/* Outlined numeral — fills with purple when the phase is in focus */
+.phase-number {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 7vw, 104px);
+  font-weight: 700;
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(113, 50, 245, 0.45);
+  transition: color var(--transition-slow), -webkit-text-stroke-color var(--transition-slow);
+}
+
+.phase-item.is-active .phase-number {
+  color: var(--purple-primary);
+  -webkit-text-stroke-color: var(--purple-primary);
+}
+
+.phase-content {
+  padding-top: var(--space-4);
+}
+
+.phase-label {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--purple-primary);
+  margin-bottom: var(--space-8);
+}
+
+.phase-name {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: var(--space-16);
+  text-wrap: balance;
+}
+
+.phase-description {
+  font-family: var(--font-nav);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 48ch;
+  margin-bottom: var(--space-24);
+  text-wrap: pretty;
+}
+
+/* ---- Key Highlights — hairline chips ---- */
+.phase-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  list-style: none;
+}
+
+.phase-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-6) var(--space-12);
+  border: 1px solid var(--rule-ink);
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-nav);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  transition: border-color var(--transition-slow), background-color var(--transition-slow), color var(--transition-slow);
+}
+
+.phase-item.is-active .phase-tag {
+  border-color: rgba(113, 50, 245, 0.3);
+  background: rgba(113, 50, 245, 0.06);
+  color: var(--purple-deep);
+}
+
+/* ---- Sticky DitherVeil ---- */
+.cohorts-visual {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+
+.cohorts-dither-wrapper {
+  position: relative;
+  height: min(calc(100vh - 128px), 720px);
+  min-height: 480px;
+
+  border-radius: 28px;
+  border: 1px solid var(--rule-ink);
+  box-shadow: 0 30px 80px -30px rgba(15, 17, 26, 0.35);
+  overflow: hidden;
+  background: var(--ink);
+}
+
+/* Floating caption over the dither canvas */
+.cohorts-dither-label {
+  position: absolute;
+  left: var(--space-16);
+  right: var(--space-16);
+  bottom: var(--space-16);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--space-12) var(--space-16);
+
+  background: rgba(15, 17, 26, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-16);
+
+  font-family: var(--font-nav);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+}
+
+.cohorts-dither-label-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--purple-primary);
+  box-shadow: 0 0 10px rgba(113, 50, 245, 0.7);
+}
+
+.cohorts-dither-label-num {
+  flex: 0 0 auto;
+  font-family: var(--font-serif);
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--purple-light);
+}
+
+.cohorts-dither-label-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: label-swap 0.5s var(--ease-out-expo) both;
+}
+
+@keyframes label-swap {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Progress ticks — top edge */
+.cohorts-progress {
+  position: absolute;
+  top: var(--space-16);
+  left: var(--space-16);
+  right: var(--space-16);
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  pointer-events: none;
+}
+
+.cohorts-progress-tick {
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.18);
+  transition: background-color var(--transition-slow);
+}
+
+.cohorts-progress-tick.is-filled {
+  background: var(--purple-primary);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .cohorts-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Flatten the left column: heading → visual → phases */
+  .cohorts-main {
+    display: contents;
+  }
+
+  .cohorts-header {
+    margin-bottom: 0;
+  }
+
+  .cohorts-visual {
+    position: relative;
+    top: auto;
+    order: 1;
+  }
+
+  .phase-list {
+    order: 2;
+  }
+
+  .cohorts-dither-wrapper {
+    height: 420px;
+    min-height: 0;
+  }
+
+  .cohorts-progress {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .cohorts-dither-wrapper {
+    height: 320px;
+  }
+
+  .phase-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+
+  /* All phases read as active on mobile — no scroll-spy dependency */
+  .phase-number {
+    color: var(--purple-primary);
+    -webkit-text-stroke-color: var(--purple-primary);
+  }
+}

@@ -1,0 +1,240 @@
+/* ============================================
+   ASSISTREND — Global Design System
+   Adapted from Kraken Design System (DESIGN.md)
+   Dark Theme variant with #0F111A base
+   ============================================ */
+
+/* CSS Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* ---- Color Tokens (from DESIGN.md) ---- */
+  /* Primary — Kraken Purple Scale */
+  --purple-primary: #7132f5;
+  --purple-dark: #5741d8;
+  --purple-deep: #5b1ecf;
+  --purple-subtle: rgba(133, 91, 251, 0.16);
+
+  /* Dark Theme Adaptation */
+  --bg-deep: #0F111A;
+  --bg-surface: #161824;
+  --bg-elevated: #1C1F2E;
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --bg-glass-hover: rgba(255, 255, 255, 0.08);
+  --bg-navbar: rgba(15, 17, 26, 0.60);
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.10);
+  --border-hover: rgba(255, 255, 255, 0.15);
+
+  /* Text (inverted from DESIGN.md for dark bg) */
+  --text-primary: #F1F3F8;
+  --text-secondary: #9497a9;  /* Silver Blue from DESIGN.md */
+  --text-muted: #686b82;      /* Cool Gray from DESIGN.md */
+
+  /* Paper — light editorial surface (derived from DitherVeil paperColor #e8e0f0) */
+  --paper: #f1ecf6;
+  --paper-deep: #e8e0f0;
+  --ink: #0F111A;
+  --ink-soft: #484b5e;
+  --ink-muted: #686b82;
+  --rule-ink: rgba(15, 17, 26, 0.12);
+  --purple-light: #a855f7;
+
+  /* Semantic */
+  --green-accent: #149e61;
+  --green-dark: #026b3f;
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, #7132f5 0%, #5b1ecf 100%);
+  --gradient-brand-glow: linear-gradient(135deg, #7132f5 0%, #a855f7 50%, #7132f5 100%);
+  --gradient-logo: linear-gradient(135deg, #7132f5, #a855f7);
+
+  /* ---- Font Families (User spec + DESIGN.md dual system) ---- */
+  --font-nav: 'Oswald', sans-serif;            /* Navbar + body + UI */
+  --font-display: 'Oswald', sans-serif;         /* Display headings */
+  --font-serif: 'Source Serif 4', serif;         /* Elegant serif accent */
+
+  /* ---- Spacing (from DESIGN.md §5) ---- */
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-3: 3px;
+  --space-4: 4px;
+  --space-5: 5px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-13: 13px;
+  --space-15: 15px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-25: 25px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+
+  /* ---- Border Radius (from DESIGN.md §5) ---- */
+  --radius-3: 3px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;    /* Max button radius per DESIGN.md */
+  --radius-16: 16px;
+  --radius-full: 9999px;
+
+  /* ---- Depth & Elevation (from DESIGN.md §6) ---- */
+  --shadow-subtle: 0px 4px 24px rgba(0, 0, 0, 0.15);
+  --shadow-micro: 0px 1px 4px rgba(16, 24, 40, 0.12);
+  --shadow-glow-purple: 0 0 40px rgba(113, 50, 245, 0.25);
+
+  /* ---- Transitions (Vercel guidelines: never transition: all) ---- */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ---- Layout ---- */
+  --container: 1280px;
+  --gutter: clamp(16px, 4vw, 48px);
+}
+
+/* ---- Reduced Motion (Vercel WIG: honor prefers-reduced-motion) ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px; /* clears the fixed navbar on anchor jumps */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-nav);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.38;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---- Selection ---- */
+::selection {
+  background: rgba(113, 50, 245, 0.3);
+  color: #fff;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================
+   Editorial primitives — shared across sections
+   ============================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Section eyebrow — "01 ——— Structured Growth" */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  font-family: var(--font-nav);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.eyebrow-num {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--purple-primary);
+}
+
+.eyebrow-rule {
+  width: 48px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+/* Serif italic accent inside display headings */
+.accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.02em;
+}
+
+/* Scroll reveal — mirrors the hero's fade-up keyframes.
+   Only armed once JS adds .js-reveal to <html> (see hooks/useReveal.js). */
+.js-reveal [data-reveal] {
+  transition:
+    opacity 0.9s ease-out,
+    transform 0.9s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js-reveal [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+  transform: translateY(24px);
+}

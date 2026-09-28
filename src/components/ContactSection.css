@@ -1,0 +1,238 @@
+/* ============================================
+   Section 4 — Contact
+   Split layout: oversized display headline left,
+   detail cards right. Dark canvas (#0F111A).
+   ============================================ */
+
+.contact-section {
+  position: relative;
+  background: var(--bg-deep);
+  padding: clamp(80px, 11vw, 160px) 0 0;
+  overflow: hidden;
+}
+
+/* Scanline texture + purple bloom behind the headline */
+.contact-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+}
+
+.contact-section::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: -10%;
+  width: 640px;
+  height: 640px;
+  background: radial-gradient(circle, rgba(113, 50, 245, 0.22) 0%, transparent 65%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.contact-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-64);
+
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---- Left column ---- */
+.contact-lead {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Eyebrow — shared .eyebrow primitive */
+.contact-eyebrow {
+  margin-bottom: var(--space-24);
+}
+
+/* Display headline — Oswald 700, oversized and tight */
+.contact-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 7vw, 108px);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: var(--space-48);
+}
+
+.contact-title-accent {
+  padding-right: 0.08em;
+  background: linear-gradient(135deg, #7132f5 0%, #a855f7 60%, #c084fc 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Scroll cue pill */
+.contact-scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+  align-self: flex-start;
+  margin-top: auto;
+  padding: var(--space-8) var(--space-16) var(--space-8) var(--space-8);
+
+  background: var(--bg-glass);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+
+  font-family: var(--font-nav);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.contact-scroll:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.contact-scroll-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--purple-subtle);
+  color: var(--purple-primary);
+}
+
+/* ---- Right column — detail cards ---- */
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-16);
+  list-style: none;
+}
+
+/* Billing address is the long one — give it the full row */
+.contact-card-billing {
+  grid-column: 1 / -1;
+}
+
+.contact-card {
+  padding: var(--space-24);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.contact-card:hover {
+  background: var(--bg-glass-hover);
+  border-color: rgba(133, 91, 251, 0.35);
+}
+
+.contact-card-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--space-32);
+
+  border-radius: var(--radius-10);
+  background: var(--purple-subtle);
+  color: var(--purple-primary);
+}
+
+.contact-card-label {
+  font-family: var(--font-nav);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: var(--space-8);
+}
+
+.contact-card-value {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+
+  font-family: var(--font-nav);
+  font-size: 15px;
+  font-weight: 400;
+  font-style: normal;   /* <address> defaults to italic */
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.contact-card-link {
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.contact-card-link:hover {
+  color: var(--purple-primary);
+}
+
+/* Reveal transition overrides the card's own — merge them */
+.js-reveal .contact-card[data-reveal] {
+  transition:
+    opacity 0.9s ease-out,
+    transform 0.9s var(--ease-out-expo),
+    background var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.contact-scroll:focus-visible,
+.contact-card-link:focus-visible {
+  outline: 2px solid var(--purple-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-6);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .contact-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-48);
+  }
+
+  .contact-title {
+    margin-bottom: var(--space-24);
+  }
+
+  .contact-scroll {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-card-icon {
+    margin-bottom: var(--space-20);
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
